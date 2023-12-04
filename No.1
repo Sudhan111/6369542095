@@ -1,1 +1,48 @@
 Hi this is my first github code
+import java.sql.*;
+import java.sql.Statement;
+import sailpoint.object.ProvisioningResult;  
+import sailpoint.object.ProvisioningPlan.AccountRequest;
+log.warn("result is" +plan.toXml());
+List  accounts =  plan.getAccountRequests();
+		ProvisioningResult provResult = new ProvisioningResult();
+		if(accounts!=null) 
+		{
+			for(int i=0;i<accounts.size();i++) 
+			{	
+				AccountRequest temp = (AccountRequest) accounts.get(i);
+	       		log.warn("List of req" + temp.toXml());
+	      		AccountRequest.Operation op = temp.getOperation();            
+	        	String accountId = temp.getNativeIdentity();
+	        	List attreq = temp.getAttributeRequests();
+log.warn("result is present" );
+	        	if(attreq!=null) 
+	        	{
+log.warn("result is possible");
+	        		for(int j=0;j<attreq.size();j++) 
+	        		{
+log.warn("inside loop");
+	        			log.warn("---------"+attreq.get(j));
+	        		}
+	        	}
+	    	
+				
+				try 
+				{
+				    stmt = connection.createStatement(); 
+	                // creating Query String   
+String a =  "INSERT INTO iiq_empdet.empdetails (id,Userid, FirstName, LastName, Age, Active, Email, Location, LWD, UniqueName, ManagerEmail, Roles)VALUES (4,'johndoe' ,'John', 'Doe', 30, 1, 'john.doe@example.com', 'New York', '2023-09-24', 'johndoe123',"+"'"+"msudhanpnp@gmail.com"+"'"+" 'msudhanpnp@gmail', '2')"; 
+	                String query = a;   
+	 			    System.out.println("query is  " + query);               
+	                stmt.executeUpdate(query);
+	            }
+				catch(SQLException e) 
+				{     
+	  				provResult.setStatus(ProvisioningResult.STATUS_FAILED);
+	                provResult.addError(e);
+			    }
+            }
+	     }
+		
+		
+				return provResult ;
